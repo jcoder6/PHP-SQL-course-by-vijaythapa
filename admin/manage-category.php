@@ -16,6 +16,16 @@
           echo $_SESSION['added-categ'];
           unset($_SESSION['added-categ']);
         }
+
+        if(isset($_SESSION['upload'])){
+          echo $_SESSION['upload'];
+          unset($_SESSION['upload']);
+        }
+
+        if(isset($_SESSION['delete'])){
+          echo $_SESSION['delete'];
+          unset($_SESSION['delete']);
+        }
       ?>
       <table class="tbl-full">
         <tr>
@@ -96,9 +106,10 @@
 
           </td>
           <td><?php echo $categ['active']; ?></td>
+
           <td>
-            <a href="#" class="btn-secondary">Edit Category</a> 
-            <a href="#" class="btn-danger">Delete Category</a>
+            <a href="<?php echo ROOT_URL; ?>admin/edit-category.php?id=<?php echo $categ['id']; ?>" class="btn-secondary">Edit Category</a> 
+            <a href="<?php echo ROOT_URL; ?>admin/delete-category.php?id=<?php echo $categ['id']; ?>" class="btn-danger">Delete Category</a>
           </td>
         </tr>
         <?php endforeach; ?>

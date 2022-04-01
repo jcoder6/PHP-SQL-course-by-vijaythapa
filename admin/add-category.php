@@ -28,7 +28,7 @@
 
           <tr>
             <td>Select Image: </td>
-            <td><input type="file" name="image" /></td>
+            <td><input type="file" name="image" required/></td>
           </tr>
           <tr>
             <td>Featured: </td>
