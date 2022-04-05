@@ -29,11 +29,11 @@
 
           <tr>
             <td>Category</td>
-            <td><select name="category">
-              <option value="launch">Launch</option>
-              <option value="breakfast">Break Fast</option>
-              <option value="dinner">Dinner</option>
-            </select></td>
+            <td>
+              <select name="category">
+                <?php displayCategories($conn); ?>
+              </select>
+            </td>        
           </tr>
 
           <tr>
@@ -65,16 +65,51 @@
           $desc = mysqli_real_escape_string($conn, $_POST['description']);
           $price = mysqli_real_escape_string($conn, $_POST['price']);
           $category = mysqli_real_escape_string($conn, $_POST['category']);
+          $categoryId = getCategoryID($category, $conn);
           $feature = mysqli_real_escape_string($conn, $_POST['feature']);
           $active = mysqli_real_escape_string($conn, $_POST['active']);
-          $imgName = imgFunction($conn);
-
-          // echo $title . $desc . $price . $category . $feature . $active . $imgName;
+          $imgName = imgFunction($conn);        
 
           #add the inputs data in our database
-          addDataInDatabase($title, $desc, $price, $imgName, $category, $feature, $active, $conn);
+          addDataInDatabase($title, $desc, $price, $imgName, $categoryId, $feature, $active, $conn);
 
          
+        }
+
+        # display the categories in the database
+        function displayCategories($conn) {
+          # create a query that will select all the name of 
+          $query3 = "SELECT title FROM tbl_category";
+
+          # execute the query
+          $res = mysqli_query($conn, $query3) or die(mysqli_error($conn));
+            # fetch the data from the result
+            $categories = mysqli_fetch_all($res, MYSQLI_ASSOC);
+            
+            #free the result
+            mysqli_free_result($res);
+          
+          foreach($categories as $category){
+            $categ = $category['title'];
+            echo "<option value='$categ'>$categ</option>";
+          }         
+        }
+
+        #get the category ID
+        function getCategoryID($category, $conn){
+          #create a query that will get ourcategory id in our database
+          $query4 = "SELECT id FROM tbl_category WHERE title = '$category'";
+
+          #execute the query the and return the id of the categry
+          $res = mysqli_query($conn, $query4) or die(myqli_error($conn));
+
+          #fetch the id from the result;
+          $categoryId = mysqli_fetch_assoc($res);
+          
+          # free the result 
+          mysqli_free_result($res);
+
+          return $categoryId['id'];
         }
 
         #for image inputs
@@ -102,9 +137,8 @@
               $destinationPath = '../images/food/' . $imgNewName;
               # 3. upload the image
               if(!move_uploaded_file($sourcePath, $destinationPath)){
-                // $_SESSION['img-upload'] = "<div class='error'>SOMETHING WENT WRONG</div>";
-                // header('location:' . ROOT_URL . 'admin/manage-food.php');
-                echo "<div class='error'>SOMETHING WENT WRONG</div>";
+                $_SESSION['img-upload'] = "<div class='error'>SOMETHING WENT WRONG</div>";
+                header('location:' . ROOT_URL . 'admin/manage-food.php');
                 die();
               }
               return $imgNewName;
@@ -120,7 +154,11 @@
                   VALUE('$title', '$desc', '$price', '$imgName', '$category', '$feature', '$active')";
 
           if(mysqli_query($conn, $query) or die(mysqli_error($conn))){
-            echo "sucessssssssssss";
+            $_SESSION['food-add'] = "<div class='success'>FOOD ADDED SUCCESSFULY</div>";
+            header('location:' .ROOT_URL. 'admin/manage-food.php');
+          } else {
+            $_SESSION['food-add'] = "<div class='success'>FAILED TO ADD IMAGE</div>";
+            header('location:' .ROOT_URL. 'admin/manage-food.php');
           }
         }
       ?>
