@@ -11,45 +11,60 @@
       <br />
       <br />
 
+      <?php 
+        if(isset($_SESSION['food-add'])){
+          echo $_SESSION['food-add'];
+          unset($_SESSION['food-add']);
+        }
+
+        if(isset($_SESSION['img-upload'])){
+          echo $_SESSION['img-upload'];
+          unset($_SESSION['img-upload']);
+        }
+      ?>
       <table class="tbl-full">
         <tr>
           <th>S.N.</th>
-          <th>Full Name</th>
-          <th>Username</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th>Featured</th>
+          <th>Active</th>
           <th>Actions</th>
         </tr>
 
-        <tr>
-          <td>1.</td>
-          <td>Jomer Dorego</td>
-          <td>jdorego06</td>
-          <td>
-            <a href="#" class="btn-secondary">Update Admin</a> 
-            <a href="#" class="btn-danger">Delete Admin</a>
-          </td>
-        </tr>
+        <!-- fetch the food data from the database -->
+        <?php $foods = getAllFood($conn); $sn = 0;?>
 
-        <tr>
-          <td>2.</td>
-          <td>Jomer Dorego</td>
-          <td>jdorego06</td>
-          <td>
-            <a href="#" class="btn-secondary">Update Admin</a> 
-            <a href="#" class="btn-danger">Delete Admin</a>
-          </td>
-        </tr>
-
-        <tr>
-          <td>3.</td>
-          <td>Jomer Dorego</td>
-          <td>jdorego06</td>
-          <td>
-            <a href="#" class="btn-secondary">Update Admin</a> 
-            <a href="#" class="btn-danger">Delete Admin</a>
-          </td>
-        </tr>
+        <!-- display each data to each webpage -->
+        <?php foreach ($foods as $food): $sn++?>
+          <tr>
+            <td><?php echo $sn; ?></td>
+            <td><?php echo $food['title']; ?></td>
+            <td>₱<?php echo $food['price']; ?></td>
+            <td><img src="../images/food/<?php echo $food['image_name']; ?>" alt="<?php echo $food['image_name']; ?>" width="100px"/></td>
+            <td><?php echo $food['featured']; ?></td>
+            <td><?php echo $food['active']; ?></td>
+            <td>
+              <a href="<?php echo ROOT_URL; ?>admin/edit-category.php?id=<?php echo $categ['id']; ?>" class="btn-secondary">Edit Food</a> 
+              <a href="<?php echo ROOT_URL; ?>admin/delete-category.php?id=<?php echo $categ['id']; ?>" class="btn-danger">Delete Food</a>
+            </td>
+          </tr>
+        <?php endforeach; ?>
       </table>
     </div>
   </div>
   
+
+  <?php 
+    function getAllFood($conn){
+      $query = "SELECT * FROM tbl_food";
+      $res = mysqli_query($conn, $query) or die(mysqli_error($conn));
+      $foods = mysqli_fetch_all($res, MYSQLI_ASSOC);
+      mysqli_free_result($res);
+      mysqli_close($conn);
+
+      return $foods;
+    }
+  ?>
 <?php include('inc/footer.php'); ?>
