@@ -41,18 +41,30 @@
             <td>Select Image: </td>
             <td><input type="file" name="image" value="<?php $imgName; ?>"/></td>
           </tr>
+
+          <tr>
+            <td>Category</td>
+            <td>
+              <select name="category">
+                <?php displayCategories($conn); ?>
+              </select>
+            </td>        
+          </tr>
+
           <tr>
             <td>Featured: </td>
             <td>
               <?php checkIfActive($featured, 'featured'); ?>
             </td>
           </tr>
+
           <tr>
             <td>Active: </td>
             <td>
               <?php checkIfActive($active, 'active'); ?>
             </td>
           </tr>
+          
           <tr>
             <td colspan="2">
               <input type="hidden" name="id" value="<?php echo $id; ?>">
