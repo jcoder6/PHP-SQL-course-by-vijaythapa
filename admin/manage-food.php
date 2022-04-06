@@ -19,6 +19,11 @@
           echo $_SESSION['delete-food'];
           unset($_SESSION['delete-food']);
         }
+
+        if(isset($_SESSION['edit-food'])){
+          echo $_SESSION['edit-food'];
+          unset($_SESSION['edit-food']);
+        }
       ?>
       
       <!-- Button to Admin -->
@@ -52,7 +57,7 @@
             <td><?php echo $food['featured']; ?></td>
             <td><?php echo $food['active']; ?></td>
             <td>
-              <a href="<?php echo ROOT_URL; ?>admin/edit-category.php?id=<?php echo $categ['id']; ?>" class="btn-secondary">Edit Food</a> 
+              <a href="<?php echo ROOT_URL; ?>admin/edit-food.php?id=<?php echo $food['id']; ?>" class="btn-secondary">Edit Food</a> 
               <a href="<?php echo ROOT_URL; ?>admin/delete-food.php?id=<?php echo $food['id'];?>&&img-name=<?php echo $food['image_name'];?>" class="btn-danger">Delete Food</a>
             </td>
           </tr>
