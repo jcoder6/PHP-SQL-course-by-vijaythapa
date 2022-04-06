@@ -144,7 +144,7 @@
               return $imgNewName;
             }
 
-            return "Image is not curretly available";
+            return "Image is not currently available";
           }
         }
 

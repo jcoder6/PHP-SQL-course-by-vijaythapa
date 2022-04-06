@@ -4,13 +4,6 @@
     <div class="wrapper">
       <h1>Manage Food</h1>
 
-      <!-- Button to Admin -->
-      <br />
-      <br />
-      <a href="add-food.php" class="btn-primary">Add Food</a>
-      <br />
-      <br />
-
       <?php 
         if(isset($_SESSION['food-add'])){
           echo $_SESSION['food-add'];
@@ -21,7 +14,20 @@
           echo $_SESSION['img-upload'];
           unset($_SESSION['img-upload']);
         }
+
+        if(isset($_SESSION['delete-food'])){
+          echo $_SESSION['delete-food'];
+          unset($_SESSION['delete-food']);
+        }
       ?>
+      
+      <!-- Button to Admin -->
+      <br />
+      <br />
+      <a href="add-food.php" class="btn-primary">Add Food</a>
+      <br />
+      <br />
+
       <table class="tbl-full">
         <tr>
           <th>S.N.</th>
@@ -47,7 +53,7 @@
             <td><?php echo $food['active']; ?></td>
             <td>
               <a href="<?php echo ROOT_URL; ?>admin/edit-category.php?id=<?php echo $categ['id']; ?>" class="btn-secondary">Edit Food</a> 
-              <a href="<?php echo ROOT_URL; ?>admin/delete-category.php?id=<?php echo $categ['id']; ?>" class="btn-danger">Delete Food</a>
+              <a href="<?php echo ROOT_URL; ?>admin/delete-food.php?id=<?php echo $food['id'];?>&&img-name=<?php echo $food['image_name'];?>" class="btn-danger">Delete Food</a>
             </td>
           </tr>
         <?php endforeach; ?>
