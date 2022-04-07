@@ -43,15 +43,6 @@
           </tr>
 
           <tr>
-            <td>Category</td>
-            <td>
-              <select name="category">
-                <?php displayCategories($conn); ?>
-              </select>
-            </td>        
-          </tr>
-
-          <tr>
             <td>Featured: </td>
             <td>
               <?php checkIfActive($featured, 'featured'); ?>

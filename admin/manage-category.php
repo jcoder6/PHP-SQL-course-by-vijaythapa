@@ -31,8 +31,8 @@
         <tr>
           <th>S.N.</th>
           <th>Title</th>
-          <th>Featured</th>
           <th>Image</th>
+          <th>Featured</th>
           <th>Action</th>
           <th>Actions</th>
         </tr>
@@ -91,13 +91,12 @@
         <tr>
           <td><?php echo $serialNum; ?></td>
           <td><?php echo $categ['title']; ?></td>
-          <td><?php echo $categ['featured']; ?></td>
           <td>
             <?php
               if($categ['image_name'] != ""){
-              $imgPath = ROOT_URL . "images/category/" . $categ['image_name'];
+                $imgPath = ROOT_URL . "images/category/" . $categ['image_name'];
               ?>
-              <img src="<?php echo $imgPath; ?>" alt="<?php echo $categ['image_name']; ?>" width="100px">
+                <img src="<?php echo $imgPath; ?>" alt="<?php echo $categ['image_name']; ?>" width="100px">
               <?php 
               } else {
                 echo "<div class='error'>Image is currently not available</div>";
@@ -105,6 +104,7 @@
               ?>
 
           </td>
+          <td><?php echo $categ['featured']; ?></td>
           <td><?php echo $categ['active']; ?></td>
 
           <td>
