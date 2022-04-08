@@ -3,7 +3,7 @@
     <section class="food-search text-center">
         <div class="container">
             
-            <form action="food-search.html" method="POST">
+            <form action="<?php echo ROOT_URL;?>food-search.php" method="POST">
                 <input type="search" name="search" placeholder="Search for Food.." required>
                 <input type="submit" name="submit" value="Search" class="btn btn-primary">
             </form>
@@ -20,7 +20,7 @@
             <h2 class="text-center">Food Menu</h2>
 
             <?php 
-                $query = "SELECT * FROM tbl_food";
+                $query = "SELECT * FROM tbl_food WHERE active = 'Yes'";
 
                 $res = mysqli_query($conn, $query) or die(mysqli_error($conn));
                 $rows = mysqli_num_rows($res); //count the rows;
