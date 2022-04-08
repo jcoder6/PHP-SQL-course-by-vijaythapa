@@ -6,100 +6,37 @@
         <div class="container">
             <h2 class="text-center">Explore Foods</h2>
 
-            <a href="category-foods.html">
-            <div class="box-3 float-container">
-                <img src="images/pizza.jpg" alt="Pizza" class="img-responsive img-curve">
+            <?php 
+                // create sql query to display the categories from data base
+                $query = "SELECT * FROM tbl_category";
 
-                <h3 class="float-text text-white">Pizza</h3>
-            </div>
-            </a>
+                //execute the qeury to so that we can get all the data
+                $res = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/burger.jpg" alt="Burger" class="img-responsive img-curve">
+                //Fecth all the data that result of the query return;
+                $categories = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
-                <h3 class="float-text text-white">Burger</h3>
-            </div>
-            </a>
+                //free the result form the query
+                mysqli_free_result($res);
 
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/momo.jpg" alt="Momo" class="img-responsive img-curve">
-
-                <h3 class="float-text text-white">Momo</h3>
-            </div>
-            </a>
-
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/pizza.jpg" alt="Pizza" class="img-responsive img-curve">
-
-                <h3 class="float-text text-white">Pizza</h3>
-            </div>
-            </a>
-
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/burger.jpg" alt="Burger" class="img-responsive img-curve">
-
-                <h3 class="float-text text-white">Burger</h3>
-            </div>
-            </a>
-
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/momo.jpg" alt="Momo" class="img-responsive img-curve">
-
-                <h3 class="float-text text-white">Momo</h3>
-            </div>
-            </a>
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/pizza.jpg" alt="Pizza" class="img-responsive img-curve">
-
-                <h3 class="float-text text-white">Pizza</h3>
-            </div>
-            </a>
-
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/burger.jpg" alt="Burger" class="img-responsive img-curve">
-
-                <h3 class="float-text text-white">Burger</h3>
-            </div>
-            </a>
-
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/momo.jpg" alt="Momo" class="img-responsive img-curve">
-
-                <h3 class="float-text text-white">Momo</h3>
-            </div>
-            </a>
-
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/pizza.jpg" alt="Pizza" class="img-responsive img-curve">
-
-                <h3 class="float-text text-white">Pizza</h3>
-            </div>
-            </a>
-
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/burger.jpg" alt="Burger" class="img-responsive img-curve">
-
-                <h3 class="float-text text-white">Burger</h3>
-            </div>
-            </a>
-
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/momo.jpg" alt="Momo" class="img-responsive img-curve">
-
-                <h3 class="float-text text-white">Momo</h3>
-            </div>
-            </a>
+                // print_r($categories.);
+                foreach($categories as $category): ?>
+                    <a href="<?php echo ROOT_URL; ?>category-foods.php?id=<?php echo $category['id']; ?>&&title=<?php echo $category['title']; ?>">
+                        <div class="box-3 float-container">
+                            <?php
+                                if($category['image_name'] == 'Image is not currently available'){
+                                    echo '<div class="error">IMAGE IN NOT CURRENTLY AVAILABLE</div>';
+                                } else {
+                                    ?>
+                                        <img src="<?php echo ROOT_URL;?>images/category/<?php echo $category['image_name'];?>" alt="<?php echo $category['image_name'];?>" class="img-responsive img-curve">
+                                    <?php
+                                }
+                            ?>                            
+                            <h3 class="float-text text-white"><?php echo $category['title']; ?></h3>
+                        </div>
+                    </a>
+                <?php endforeach;
+            ?>
 
             
 
