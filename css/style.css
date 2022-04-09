@@ -200,6 +200,14 @@ fieldset{
     font-weight: bold;
 }
 
+.success {
+    color: #2ed573;
+  }
+  
+  .error {
+    color: #ff4757;
+  }
+
 
 
 /* CSS for Mobile Size or Smaller Screen */
