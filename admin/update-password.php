@@ -4,10 +4,10 @@
   <div class="wrapper">
     <h1>Change Password</h1>
     <?php
-    
-      if(isset($_GET['id'])){
-        $id = $_GET['id'];
-      }
+
+    if (isset($_GET['id'])) {
+      $id = $_GET['id'];
+    }
     ?>
     <br><br>
     <form action="" method="POST">
@@ -32,7 +32,7 @@
       <tr>
         <td colspan="2">
           <input type="hidden" name="admin-id" value="<?php echo $id; ?>">
-          <input type="submit" name="submit" value="Change Password" class="btn-secondary"> 
+          <input type="submit" name="submit" value="Change Password" class="btn-secondary">
         </td>
       </tr>
     </form>
@@ -40,63 +40,63 @@
 </div>
 
 <?php
-  // CHECK IF THE USER CLICKED SUBMIT
-  if(isset($_POST['submit'])){
-    // echo "SUBMIT";
+// CHECK IF THE USER CLICKED SUBMIT
+if (isset($_POST['submit'])) {
+  // echo "SUBMIT";
 
-    // GET DATA FROM THE FORM;
-    $id = mysqli_real_escape_string($conn, $_POST['admin-id']);
-    $currentPass = mysqli_real_escape_string($conn, md5($_POST['current-password']));
-    $newPass = mysqli_real_escape_string($conn, md5($_POST['new-password']));
-    $confirmPass = mysqli_real_escape_string($conn, md5($_POST['confirm-password']));
+  // GET DATA FROM THE FORM;
+  $id = mysqli_real_escape_string($conn, $_POST['admin-id']);
+  $currentPass = mysqli_real_escape_string($conn, md5($_POST['current-password']));
+  $newPass = mysqli_real_escape_string($conn, md5($_POST['new-password']));
+  $confirmPass = mysqli_real_escape_string($conn, md5($_POST['confirm-password']));
 
-    // echo $id . "-" . $currentPass . "-" . $newPass . "-" . $confirmPass;
+  // echo $id . "-" . $currentPass . "-" . $newPass . "-" . $confirmPass;
 
-    //CREATE QUERY
-    $sql = "SELECT * FROM tbl_admin WHERE id=$id AND password='$currentPass'";
-    
-    //get the result from the query
-    $res = mysqli_query($conn, $sql);
+  //CREATE QUERY
+  $sql = "SELECT * FROM tbl_admin WHERE id=$id AND password='$currentPass'";
 
-    //Count of the data we get it should be only 1
-    $count = mysqli_num_rows($res);
-  
-    //fetch the result from the result data
-    $adminData = mysqli_fetch_assoc($res);
-    
-    //Free the result
-    mysqli_free_result($res);
+  //get the result from the query
+  $res = mysqli_query($conn, $sql);
 
-    //close the connection
-    //Check if the id and current pass are match
-    if($adminData['id'] == $id && $adminData['password'] == $currentPass && $count == 1){
-      if($newPass == $confirmPass){
-        // echo 'password match';
+  //Count of the data we get it should be only 1
+  $count = mysqli_num_rows($res);
 
-        //update Password to the new password
-        // 1. create the query that's update a password to database
-        $sql = "UPDATE tbl_admin SET
+  //fetch the result from the result data
+  $adminData = mysqli_fetch_assoc($res);
+
+  //Free the result
+  mysqli_free_result($res);
+
+  //close the connection
+  //Check if the id and current pass are match
+  if ($adminData['id'] == $id && $adminData['password'] == $currentPass && $count == 1) {
+    if ($newPass == $confirmPass) {
+      // echo 'password match';
+
+      //update Password to the new password
+      // 1. create the query that's update a password to database
+      $sql = "UPDATE tbl_admin SET
               password = '$newPass'
                WHERE password = '$currentPass'";
-        // 2. execute the query;
-        $res = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-        if($res == TRUE){
-          $_SESSION['update-pass'] = "<div class='success'>PASSWORD CHANGED SUCCESSFULY</div>";
-          header('location:' .ROOT_URL. 'admin/manage-admin.php');
-        } else {
-          echo 'ERROR' .mysqli_error($conn);
-        }
+      // 2. execute the query;
+      $res = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+      if ($res == TRUE) {
+        $_SESSION['update-pass'] = "<div class='success'>PASSWORD CHANGED SUCCESSFULY</div>";
+        header('location:' . ROOT_URL . 'admin/manage-admin.php');
       } else {
-        $_SESSION['user-not-found'] = "<div class='error'>PASSWORD DOES NOT MATCH</div>";
-        header('location:' .ROOT_URL. 'admin/manage-admin.php');
+        echo 'ERROR' . mysqli_error($conn);
       }
     } else {
-      $_SESSION['user-not-found'] = "<div class='error'>USER NOT FOUND </div>";
-      header('location:' .ROOT_URL. 'admin/manage-admin.php');
+      $_SESSION['user-not-found'] = "<div class='error'>PASSWORD DOES NOT MATCH</div>";
+      header('location:' . ROOT_URL . 'admin/manage-admin.php');
     }
-
-    mysqli_close($conn);
+  } else {
+    $_SESSION['user-not-found'] = "<div class='error'>USER NOT FOUND </div>";
+    header('location:' . ROOT_URL . 'admin/manage-admin.php');
   }
+
+  mysqli_close($conn);
+}
 ?>
 
 <?php include('inc/footer.php'); ?>

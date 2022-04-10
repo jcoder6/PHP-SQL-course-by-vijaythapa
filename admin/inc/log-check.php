@@ -8,4 +8,3 @@
     header('location:' .ROOT_URL. 'admin/log-in.php');
     echo "fucccccccccccccckkkkkkkkk";
   }
-?>

@@ -40,4 +40,3 @@
       echo 'no img found';
     }
   }
-?>

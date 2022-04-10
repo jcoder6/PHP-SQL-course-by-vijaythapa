@@ -6,4 +6,3 @@
 
   //2. redirect the page to log-in page;
   header('location:' .ROOT_URL. 'admin/log-in.php');
-?>
