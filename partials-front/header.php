@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <!-- Important to make website responsive -->
@@ -25,13 +26,13 @@
             <div class="menu text-right">
                 <ul>
                     <li>
-                        <a href="<?php echo ROOT_URL;?>index.php">Home</a>
+                        <a href="<?php echo ROOT_URL; ?>index.php">Home</a>
                     </li>
                     <li>
-                        <a href="<?php echo ROOT_URL;?>categories.php">Categories</a>
+                        <a href="<?php echo ROOT_URL; ?>categories.php">Categories</a>
                     </li>
                     <li>
-                        <a href="<?php echo ROOT_URL;?>foods.php">Foods</a>
+                        <a href="<?php echo ROOT_URL; ?>foods.php">Foods</a>
                     </li>
                     <li>
                         <a href="#">Contact</a>

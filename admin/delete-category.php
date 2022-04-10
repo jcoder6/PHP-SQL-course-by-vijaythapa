@@ -47,4 +47,3 @@
 
   deleteImageFromFolder($conn, $query2);
   deleteDataFromDataBase($conn, $query);
-?>

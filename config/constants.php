@@ -12,5 +12,3 @@
   if(mysqli_connect_errno()){
     echo 'Connection error' . mysqli_connect_errno();
   }
-
-?>

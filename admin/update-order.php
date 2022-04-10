@@ -7,7 +7,7 @@ $query = "SELECT * FROM tbl_order WHERE id = $id";
 $res = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $order = mysqli_fetch_assoc($res);
 mysqli_free_result($res);
-print_r($order);
+// print_r($order);
 
 ?>
 <div class="main-content">

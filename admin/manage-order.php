@@ -73,7 +73,7 @@ mysqli_free_result($res);
             <td><?php echo $order['customer_contact']; ?></td>
             <td><?php echo $order['customer_address']; ?></td>
             <td>
-              <a href="<?php echo ROOT_URL; ?>admin/update-order.php?id=<?php echo $order['id']; ?>" class="btn-secondary">Update Admin</a>
+              <a href="<?php echo ROOT_URL; ?>admin/update-order.php?id=<?php echo $order['id']; ?>" class="btn-secondary">Update Order</a>
             </td>
           </tr>
       <?php endforeach;
